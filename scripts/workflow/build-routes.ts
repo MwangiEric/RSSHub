@@ -1,3 +1,6 @@
+import { mkdirSync } from 'fs';
+import { dirname, join } from 'path';
+
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -119,7 +122,10 @@ export type RoutePath =
 ${uniquePaths.map((path) => `  | \`${path}\``).join('\n')};
 `;
 
-fs.writeFileSync(path.join(__dirname, '../../assets/build/radar-rules.json'), JSON.stringify(radar, null, 2));
+const radarFilePath = join(__dirname, '../../assets/build/radar-rules.json');
+mkdirSync(dirname(radarFilePath), { recursive: true });
+fs.writeFileSync(radarFilePath, JSON.stringify(radar, null, 2));
+
 fs.writeFileSync(path.join(__dirname, '../../assets/build/radar-rules.js'), `(${toSource(radar)})`);
 fs.writeFileSync(path.join(__dirname, '../../assets/build/maintainers.json'), JSON.stringify(maintainers, null, 2));
 fs.writeFileSync(path.join(__dirname, '../../assets/build/routes.json'), JSON.stringify(namespaces, null, 2));
