@@ -1,20 +1,21 @@
 import { Route } from '@/types';
-// ... other imports
+import { DataItem } from '@/types';
 
 export const route: Route = {
-    // This path MUST match the URL
     path: '/kenyatronics/product/:productId',
-    
     categories: ['shopping'],
-    example: '/kenyatronics/product/itel-s25-ultra',
+    example: '/kenyatronics/product/test',
     name: 'Kenyatronics Product',
     maintainers: ['your-username'],
-    
     handler: async (ctx) => {
-        // Your logic here
-        // ctx.params.productId will contain the product ID
-        const productId = ctx.params.productId;
-        // ...
-        return {};
+        console.log('Product route hit for ID:', ctx.params.productId); // Debug log
+        
+        return {
+            title: `Product details for: ${ctx.params.productId}`,
+            description: 'Test description',
+            link: 'https://kenyatronics.com',
+            guid: 'test-guid',
+            pubDate: new Date(),
+        };
     },
 };
